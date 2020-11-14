@@ -51,3 +51,36 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
   
     return circlesGroup;
   }
+
+  function updateToolTip(chosenXAxis, circlesGroup) {
+
+    var label;
+  
+    if (chosenXAxis === "poverty") {
+      label = "In Poverty (%)";
+    }
+    else if (chosenXAxis === "age") {
+        label = "Age (Median)";
+    }
+    else {
+      label = "Household Income (Median)";
+    }
+  
+    var toolTip = d3.tip()
+      .attr("class", "tooltip")
+      .offset([80, -60])
+      .html(function(d) {
+        return (`${d.state}<br>${label} ${d[chosenXAxis]}`);
+      });
+  
+    circlesGroup.call(toolTip);
+  
+    circlesGroup.on("mouseover", function(data) {
+      toolTip.show(data);
+    })
+      .on("mouseout", function(data, index) {
+        toolTip.hide(data);
+      });
+  
+    return circlesGroup;
+  }
