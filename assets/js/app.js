@@ -21,3 +21,12 @@ var svg = d3
 var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
+var chosenXAxis = "poverty";
+
+function xScale(data, chosenXAxis) {
+    var xLinearScale = d3.scaleLinear()
+        .domain([d3.min(data, d => d[chosenXAxis]) * 0.8,
+            d3.max(data, d => d[chosenXAxis]) * 1.2
+        ])
+        .range([0, width]);
+}
