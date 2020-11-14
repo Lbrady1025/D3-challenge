@@ -29,4 +29,25 @@ function xScale(data, chosenXAxis) {
             d3.max(data, d => d[chosenXAxis]) * 1.2
         ])
         .range([0, width]);
+    
+    return xLinearScale;
 }
+
+function renderAxes(newXScale, xAxis) {
+    var bottomAxis = d3.axisBottom(newXScale);
+  
+    xAxis.transition()
+      .duration(1000)
+      .call(bottomAxis);
+  
+    return xAxis;
+  }
+
+function renderCircles(circlesGroup, newXScale, chosenXAxis) {
+
+    circlesGroup.transition()
+      .duration(1000)
+      .attr("cx", d => newXScale(d[chosenXAxis]));
+  
+    return circlesGroup;
+  }
