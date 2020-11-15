@@ -23,6 +23,8 @@ var chartGroup = svg.append("g")
 
 var chosenXAxis = "poverty";
 
+var chosenYAxis = "healthcare";
+
 function xScale(data, chosenXAxis) {
     var xLinearScale = d3.scaleLinear()
         .domain([d3.min(data, d => d[chosenXAxis]) * 0.8,
@@ -31,6 +33,16 @@ function xScale(data, chosenXAxis) {
         .range([0, width]);
     
     return xLinearScale;
+}
+
+function yScale(data, chosenYAxis) {
+    var yLinearScale = d3.scaleLinear()
+        .domain([d3.min(data, d => d[chosenYAxis]) * 0.8,
+            d3.max(data, d => d[chosenYAxis]) * 1.2
+        ])
+        .range([0,height]);
+    
+    return yLinearScale;
 }
 
 function renderAxes(newXScale, xAxis) {
@@ -84,3 +96,20 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
   
     return circlesGroup;
   }
+
+d3.csv("../data/data.csv").then(function(data,err){
+    if (err) throw err;
+
+    data.forEach(function(data){
+        data.poverty = +data.poverty;
+        data.age = +data.age;
+        data.income = +data.income;
+        data.healthcare = +data.healthcare;
+        data.obesity = +data.obesity;
+        data.smokes = +data.smokes;
+    });
+
+    var xLinearScale = xScale(data, chosenXAxis);
+
+    var yLinearScale = yScale(data, chosenYAxis);
+})
