@@ -182,4 +182,108 @@ d3.csv("../data/data.csv").then(function(data,err){
 
     var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
-})
+    xlabelsGroup.selectAll("text")
+        .on("click", function() {
+            var xValue = d3.select(this).attr("value");
+            if (xvalue !== chosenXAxis) {
+
+                chosenXAxis = xvalue;
+
+                xLinearScale = xScale(data, chosenXAxis);
+
+                xAxis = renderAxes(xLinearScale, xAxis);
+
+                circlesGroup = renderCircles(circlesGroup, xLinearScale,chosenXAxis);
+
+                circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+
+                if (chosenXAxis === "poverty") {
+                    povertyLabel
+                      .classed("active", true)
+                      .classed("inactive", false);
+                    ageLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                    incomeLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                  }
+                else if (chosenXAxis === "age") {
+                    ageLabel
+                      .classed("active", true)
+                      .classed("inactive", false);
+                    povertyLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                    incomeLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                  }
+                  else {
+                    ageLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                    povertyLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                    incomeLabel
+                      .classed("active", true)
+                      .classed("inactive", false);
+                  }
+
+            }
+        });
+    ylabelsGroup.selectAll("text")
+        .on("click", function() {
+            var yValue = d3.select(this).attr("value");
+            if (yvalue !== chosenYAxis) {
+
+                chosenYAxis = yvalue;
+
+                yLinearScale = xScale(data, chosenYAxis);
+
+                yAxis = renderAxes(yLinearScale, yAxis);
+
+                circlesGroup = renderCircles(circlesGroup, yLinearScale,chosenYAxis);
+
+                circlesGroup = updateToolTip(chosenYAxis, circlesGroup);
+
+                if (chosenYAxis === "obesity") {
+                    obesityLabel
+                      .classed("active", true)
+                      .classed("inactive", false);
+                    smokesLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                    healthcareLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                  }
+                else if (chosenYAxis === "smokes") {
+                    smokesLabel
+                      .classed("active", true)
+                      .classed("inactive", false);
+                    obesityLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                    healthcareLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                  }
+                  else {
+                    smokesLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                    obesityLabel
+                      .classed("active", false)
+                      .classed("inactive", true);
+                    ihealthcareLabel
+                      .classed("active", true)
+                      .classed("inactive", false);
+                  }
+
+            }
+        });
+}).catch(function(error){
+    console.log(error);
+});
