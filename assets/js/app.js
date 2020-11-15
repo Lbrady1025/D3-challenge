@@ -147,15 +147,39 @@ d3.csv("../data/data.csv").then(function(data,err){
 
     var ageLabel = xlabelsGroup.append("text")
         .attr("x", 0)
-        .attr("y", 20)
+        .attr("y", 40)
         .attr("value", "age")
-        .classed("active", true)
+        .classed("inactive", true)
         .text("Age (Median)");
 
     var incomeLabel = xlabelsGroup.append("text")
         .attr("x", 0)
-        .attr("y", 20)
+        .attr("y", 60)
         .attr("value", "income")
-        .classed("active", true)
+        .classed("inactive", true)
         .text("Household Income (Median)");
+
+    var ylabelsGroup = chartGroup.append("g")
+        .attr("transform", `translate(${width + 20}, ${height / 2}, rotate(-90))`);
+    
+    var obesityLabel = ylabelsGroup.append("text")
+        .attr("x", 20)
+        .attr("y", 0)
+        .classed("active", true)
+        .text("Obesity (%)");
+
+    var healthcareLabel = ylabelsGroup.append("text")
+        .attr("x", 20)
+        .attr("y", 0)
+        .classed("inactive", true)
+        .text("Lacks Healthcare (%)");
+
+    var smokesLabel = ylabelsGroup.append("text")
+        .attr("x", 20)
+        .attr("y", 0)
+        .classed("inactive", true)
+        .text("Smokes (%)");
+
+    var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
+
 })
