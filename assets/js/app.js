@@ -13,7 +13,7 @@ var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
 
 var svg = d3
-  .select(".chart")
+  .select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
@@ -97,7 +97,7 @@ function renderCircles(circlesGroup, newXScale, chosenXAxis) {
     return circlesGroup;
   }
 
-d3.csv("../data/data.csv").then(function(data,err){
+d3.csv("assets/data/data.csv").then(function(data,err){
     if (err) throw err;
 
     data.forEach(function(data){
