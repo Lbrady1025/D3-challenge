@@ -133,7 +133,7 @@ d3.csv("assets/data/data.csv").then(function(data,err){
         .attr("r", 20)
         .attr("fill", "blue")
         .attr("opacity", ".5")
-        .attr("text", d => d.abbr);
+        .append("text", d => d.abbr);
 
     var xlabelsGroup = chartGroup.append("g")
         .attr("transform", `translate(${width / 2}, ${height + 20})`);
@@ -160,7 +160,7 @@ d3.csv("assets/data/data.csv").then(function(data,err){
         .text("Household Income (Median)");
 
     var ylabelsGroup = chartGroup.append("g")
-        .attr("transform", `translate(${width + 20}, ${height / 2}, rotate(-90))`);
+        .attr("transform", `translate(${width + 20}, ${height / 2})`);
     
     var obesityLabel = ylabelsGroup.append("text")
         .attr("x", 20)
@@ -185,9 +185,9 @@ d3.csv("assets/data/data.csv").then(function(data,err){
     xlabelsGroup.selectAll("text")
         .on("click", function() {
             var xValue = d3.select(this).attr("value");
-            if (xvalue !== chosenXAxis) {
+            if (xValue !== chosenXAxis) {
 
-                chosenXAxis = xvalue;
+                chosenXAxis = xValue;
 
                 xLinearScale = xScale(data, chosenXAxis);
 
@@ -236,9 +236,9 @@ d3.csv("assets/data/data.csv").then(function(data,err){
     ylabelsGroup.selectAll("text")
         .on("click", function() {
             var yValue = d3.select(this).attr("value");
-            if (yvalue !== chosenYAxis) {
+            if (yValue !== chosenYAxis) {
 
-                chosenYAxis = yvalue;
+                chosenYAxis = yValue;
 
                 yLinearScale = xScale(data, chosenYAxis);
 
